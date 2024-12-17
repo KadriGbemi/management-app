@@ -5,15 +5,19 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import 'dotenv/config';
-
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 
-var app = express();
+import 'dotenv/config';
+import connectToDatabase from './config/database.js';
+
+const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+
+connectToDatabase().catch(console.dir);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
