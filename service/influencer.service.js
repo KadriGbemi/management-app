@@ -1,21 +1,16 @@
-import { MongoClient } from 'mongodb'
+import connectToDatabase from '../config/database.js'
 
 export const createInfluencer = async (payload) => {
-  const client = new MongoClient(process.env.MONGODB_URI)
-  await client.connect()
-
-  const database = client.db(process?.env?.MANAGEMENT_DB)
+  const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
-  const response = await col.insertOne(payload)
 
-  return response
+  await col.insertOne(payload)
+
+  return payload
 }
 
 export const getInfluencers = async () => {
-  const client = new MongoClient(process.env.MONGODB_URI)
-  await client.connect()
-
-  const database = client.db(process?.env?.MANAGEMENT_DB)
+  const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
   const employees = await col.find().toArray()
 
@@ -23,10 +18,7 @@ export const getInfluencers = async () => {
 }
 
 export const getInfluencerById = async (params) => {
-  const client = new MongoClient(process.env.MONGODB_URI)
-  await client.connect()
-
-  const database = client.db(process?.env?.MANAGEMENT_DB)
+  const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
 
   const allData = col.find({ id: Number(params?.influencerId) })

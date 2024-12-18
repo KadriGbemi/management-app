@@ -9,15 +9,11 @@ import indexRouter from './routes/index.js';
 import employeeRouter from './routes/employee.js';
 
 import 'dotenv/config';
-import connectToDatabase from './config/database.js';
 
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-
-connectToDatabase().catch(console.dir);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
