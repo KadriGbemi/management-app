@@ -7,7 +7,7 @@ import logger from 'morgan'
 import cors from 'cors'
 
 import indexRouter from './routes/index.js'
-import employeeRouter from './routes/employee.js'
+import employeeRouter from './routes/api.js'
 
 import 'dotenv/config'
 

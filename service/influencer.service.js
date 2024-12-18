@@ -1,10 +1,13 @@
 import connectToDatabase from '../config/database.js'
+import { v7 as uuidv7 } from 'uuid'
 
 export const createInfluencer = async (payload) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
 
-  await col.insertOne(payload)
+  const id = uuidv7()
+
+  await col.insertOne({ id, ...payload })
 
   return payload
 }
@@ -21,7 +24,7 @@ export const getInfluencerById = async (params) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
 
-  const allData = col.find({ id: Number(params?.influencerId) })
+  const allData = col.find({ id: params?.influencerId })
 
   const influencerData = await allData.toArray()
 

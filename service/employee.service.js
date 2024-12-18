@@ -15,7 +15,7 @@ export const getEmployeeById = async (params) => {
 
   const col = database.collection(process?.env?.EMPLOYEES_COLLECTION)
 
-  const allData = col.find({ id: Number(params?.employeeId) })
+  const allData = col.find({ id: params?.employeeId })
 
   const employeeData = await allData.toArray()
 
