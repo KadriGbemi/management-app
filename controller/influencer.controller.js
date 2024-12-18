@@ -1,4 +1,5 @@
 import influencerService from '../service/influencer.service.js'
+import { isEmpty } from '../utils/index.js'
 
 export const hasInputNameErrors = (req, res) => {
   const { first_name, last_name } = req.body
@@ -45,7 +46,10 @@ export const createInfluencer = async (req, res) => {
 
 export const getInfluencers = async (req, res) => {
   try {
-    const influencers = await influencerService.getInfluencers()
+    const influencers = isEmpty(req?.query)
+      ? await influencerService.getInfluencers()
+      : await influencerService.getFilteredInfluencers(req.query)
+
     res.status(200).json(influencers)
   } catch (err) {
     res.status(500).json({ error: err.message })

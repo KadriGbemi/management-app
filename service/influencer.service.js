@@ -12,12 +12,31 @@ export const createInfluencer = async (payload) => {
   return payload
 }
 
+export const getFilteredInfluencers = async (query) => {
+  const database = await connectToDatabase()
+  const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
+
+  const influencers = await col
+    .find({
+      $or: [
+        { first_name: query?.first_name },
+        { last_name: query?.last_name },
+        {
+          employee: query?.employee,
+        },
+      ],
+    })
+    .toArray()
+
+  return influencers
+}
+
 export const getInfluencers = async () => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
-  const employees = await col.find().toArray()
+  const influencers = await col.find().toArray()
 
-  return employees
+  return influencers
 }
 
 export const getInfluencerById = async (params) => {
@@ -31,4 +50,4 @@ export const getInfluencerById = async (params) => {
   return influencerData?.[0] || {}
 }
 
-export default { getInfluencers, getInfluencerById, createInfluencer }
+export default { getInfluencers, getFilteredInfluencers, getInfluencerById, createInfluencer }
