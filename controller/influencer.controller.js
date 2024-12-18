@@ -1,5 +1,4 @@
 import influencerService from '../service/influencer.service.js'
-import { isEmpty } from '../utils/index.js'
 
 export const hasInputNameErrors = (req, res) => {
   const { first_name, last_name } = req.body
@@ -36,14 +35,8 @@ export const createInfluencer = async (req, res) => {
     const isInputNamesWithErrors = hasInputNameErrors(req, res)
 
     if (!isInputNamesWithErrors) {
-     // const verifiedAccountErrors = await verifySocialMediaAccount(req.body.social_media)
-
-      // if (isEmpty(verifiedAccountErrors)) {
-        const influencer = await influencerService.createInfluencer(req.body)
-        res.status(200).json(influencer)
-/*       }
-
-      return res.status(403).json({ errors: verifiedAccountErrors }) */
+      const influencer = await influencerService.createInfluencer(req.body)
+      res.status(200).json(influencer)
     }
   } catch (err) {
     res.status(500).json({ error: err.message })
