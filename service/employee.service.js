@@ -18,11 +18,11 @@ export const getEmployeeById = async (params) => {
   const database = client.db(process?.env?.MANAGEMENT_DB)
   const col = database.collection(process?.env?.EMPLOYEES_COLLECTION)
 
-  const allEmployeesByID = col.find({ id: Number(params?.employeeId) })
+  const allData = col.find({ id: Number(params?.employeeId) })
 
-  const employee = await allEmployeesByID.toArray()
+  const employeeData = await allData.toArray()
 
-  return employee?.[0] || {}
+  return employeeData?.[0] || {}
 }
 
 export default { getEmployees, getEmployeeById }

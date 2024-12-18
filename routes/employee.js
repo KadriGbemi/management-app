@@ -1,5 +1,6 @@
 import express from 'express'
 import employeeController from '../controller/employee.controller.js'
+import influencerController from '../controller/influencer.controller.js'
 
 const router = express.Router()
 
@@ -11,5 +12,8 @@ router.get('/', function (req, res, next) {
 router.get('/employees', employeeController.getEmployees)
 
 router.get('/employees/:employeeId', employeeController.getEmployeeById)
+
+/* POST new influencer. */
+router.post('/influencer', influencerController.createInfluencer)
 
 export default router
