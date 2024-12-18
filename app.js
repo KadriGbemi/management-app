@@ -14,7 +14,7 @@ import 'dotenv/config'
 const app = express()
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || ['http://localhost:5050'].includes(origin)) {
+    if (!origin || ['http://localhost:5050', 'https://management-app.fly.dev/'].includes(origin)) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
