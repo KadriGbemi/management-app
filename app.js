@@ -12,9 +12,10 @@ import employeeRouter from './routes/api.js'
 import 'dotenv/config'
 
 const app = express()
+
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || ['http://localhost:5173/', 'https://management-app.fly.dev/'].includes(origin)) {
+    if (!origin || ['http://localhost:5173', 'https://management-app.fly.dev/'].includes(origin)) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -25,10 +26,10 @@ const corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
+app.use(cors(corsOptions))
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-app.use(cors(corsOptions))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -39,6 +40,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.options('*', cors(corsOptions))
 
 app.use('/', indexRouter)
 app.use('/api', employeeRouter)
