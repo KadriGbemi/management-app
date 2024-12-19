@@ -21,8 +21,7 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'OPTIONS', 'PUT'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  allowedHeaders: ['Content-Type', 'application/json'],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
