@@ -5,15 +5,15 @@ const buildFilters = (query) => {
   const filters = []
 
   if (query?.first_name) {
-    filters.push({ first_name: { $regex: query.first_name, $options: 'i' } })
+    filters.push({ first_name: { $regex: query.first_name, $options: 'ix' } })
   }
 
   if (query?.last_name) {
-    filters.push({ last_name: { $regex: query.last_name, $options: 'i' } })
+    filters.push({ last_name: { $regex: query.last_name, $options: 'ix' } })
   }
 
   if (query?.employee) {
-    filters.push({ 'employee.name': { $regex: query.employee, $options: 'i' } })
+    filters.push({ 'employee.name': { $regex: query.employee, $options: 'ix' } })
   }
 
   return filters
