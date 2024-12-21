@@ -1,6 +1,24 @@
 import connectToDatabase from '../config/database.js'
 import { v7 as uuidv7 } from 'uuid'
 
+const buildFilters = (query) => {
+  const filters = []
+
+  if (query?.first_name) {
+    filters.push({ first_name: { $regex: query.first_name, $options: 'i' } })
+  }
+
+  if (query?.last_name) {
+    filters.push({ last_name: { $regex: query.last_name, $options: 'i' } })
+  }
+
+  if (query?.employee) {
+    filters.push({ 'employee.name': { $regex: query.employee, $options: 'i' } })
+  }
+
+  return filters
+}
+
 export const createInfluencer = async (payload) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
@@ -15,17 +33,17 @@ export const createInfluencer = async (payload) => {
 export const getFilteredInfluencers = async (query) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
-  
+
+  const filters = buildFilters(query)
+
   const influencers = await col
-    .find({
-      $or: [
-        { first_name: { $regex: query.first_name || '', $options: 'i' } },
-        { last_name: { $regex: query?.last_name || '', $options: 'i' } },
-        {
-          'employee.name': { $regex: query?.employee || '', $options: 'i' },
-        },
-      ],
-    })
+    .find(
+      filters.length > 0
+        ? {
+            $or: filters,
+          }
+        : {}
+    )
     .toArray()
 
   return influencers
