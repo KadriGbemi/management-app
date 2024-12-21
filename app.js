@@ -7,7 +7,7 @@ import logger from 'morgan'
 import cors from 'cors'
 
 import indexRouter from './routes/index.js'
-import employeeRouter from './routes/api.js'
+import apiRouter from './routes/api.js'
 
 import 'dotenv/config'
 
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.options('*', cors(corsOptions))
 
 app.use('/', indexRouter)
-app.use('/api', employeeRouter)
+app.use('/api', apiRouter)
 
 app.use(function (req, res, next) {
   next(createError(404))

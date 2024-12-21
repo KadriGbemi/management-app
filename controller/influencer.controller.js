@@ -46,9 +46,12 @@ export const createInfluencer = async (req, res) => {
 
 export const getInfluencers = async (req, res) => {
   try {
+  
     const influencers = isEmpty(req?.query)
       ? await influencerService.getInfluencers()
-      : await influencerService.getFilteredInfluencers(req.query)
+      : await influencerService.getFilteredInfluencers(req?.query)
+
+     // console.log('Get influencers final', influencers)
 
     res.status(200).json(influencers)
   } catch (err) {

@@ -15,14 +15,14 @@ export const createInfluencer = async (payload) => {
 export const getFilteredInfluencers = async (query) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
-
+  
   const influencers = await col
     .find({
       $or: [
-        { first_name: query?.first_name },
-        { last_name: query?.last_name },
+        { first_name: { $regex: query.first_name || '', $options: 'i' } },
+        { last_name: { $regex: query?.last_name || '', $options: 'i' } },
         {
-          employee: query?.employee,
+          'employee.name': { $regex: query?.employee || '', $options: 'i' },
         },
       ],
     })
