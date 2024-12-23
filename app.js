@@ -21,12 +21,12 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'))
     }
   },
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT'],
+  methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT'],
   allowedHeaders: ['Content-Type', 'application/json'],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-app.use(cors(corsOptions))
+app.use(cors())
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

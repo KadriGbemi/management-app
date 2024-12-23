@@ -21,4 +21,10 @@ router.get('/influencers/:influencerId', influencerController.getInfluencerById)
 /* POST new influencer. */
 router.post('/influencers', influencerController.createInfluencer)
 
+/* DELETE influencers listing. */
+router.delete('/influencers/:influencerId', influencerController.deleteInfluencer)
+
+/* Assign and unassign manager */
+router.put('/influencers', influencerController.updateInfluencer)
+
 export default router
