@@ -15,7 +15,7 @@ const app = express()
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || ['http://localhost:5173', 'https://management-app.fly.dev/'].includes(origin)) {
+    if (!origin || ['http://localhost:5173', 'https://management-app-front.vercel.app/'].includes(origin)) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
