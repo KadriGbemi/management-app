@@ -47,7 +47,7 @@ app.use('/', indexRouter)
 app.use('/api', apiRouter)
 
 app.all('*', (req, res) => {
-  res.status(404).json({ error: 'Page is not Found' })
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 })
 
 
