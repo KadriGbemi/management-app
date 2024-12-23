@@ -36,8 +36,6 @@ export const deleteInfluencer = async (params) => {
 
   const influencer = await col.find({ id: params?.influencerId }).toArray()
 
-  console.log("Influencer delete", influencer)
-
   if (influencer?.length) {
     const response = await col.deleteOne({ id: influencer[0].id })
     return response

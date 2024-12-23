@@ -19,6 +19,12 @@ block content
 
   pre
   code
+    | Send a DELETE request to 
+    a(href="/api/influencers/0193dabd-2fcf-711b-8156-a7dbb3d27743") /api/influencers/${id}
+    |  to delete one influencer
+
+  pre
+  code
     | Send a GET request with query to 
     a(href="/api/influencers/?first_name=John&last_name=Race&manager=james") /api/influencers/?name={name}&manager=${manager}
     |  to filter by influencer name and by assigned manager
