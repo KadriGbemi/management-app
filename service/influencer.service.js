@@ -76,6 +76,18 @@ export const getFilteredInfluencers = async (query) => {
   const database = await connectToDatabase()
   const col = database.collection(process?.env?.INFLUENCERS_COLLECTION)
 
+  const filterByFirstName = await col.find({ first_name: query.first_name, 'employee.name': query.employee }).toArray()
+
+  if (filterByFirstName?.length) {
+    return filterByFirstName
+  }
+
+  const filterByLastName = await col.find({ last_name: query.last_name, 'employee.name': query.employee }).toArray()
+
+  if (filterByLastName.length) {
+    return filterByLastName
+  }
+
   const filters = buildFilters(query)
 
   const influencers = await col
@@ -116,5 +128,5 @@ export default {
   getInfluencerById,
   createInfluencer,
   updateInfluencer,
-  deleteInfluencer
+  deleteInfluencer,
 }
