@@ -46,6 +46,11 @@ app.options('*', cors(corsOptions))
 app.use('/', indexRouter)
 app.use('/api', apiRouter)
 
+app.all('*', (req, res) => {
+  res.status(404).json({ error: 'Page is not Found' })
+})
+
+
 app.use(function (req, res, next) {
   next(createError(404))
 })
